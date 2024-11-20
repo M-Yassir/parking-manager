@@ -243,3 +243,54 @@ public class Main {
     }
 }
 
+                       /*        exemple de compilation:
+on choisi l'un de 1 a 6:
+1. Add Vehicle
+2. Modify Vehicle
+3. Delete Vehicle
+4. Display Vehicles
+5. Save to File
+6. Exit
+------------------------------
+for Add Vehicle:
+1
+Enter vehicle type (1: Car, 2: Truck, 3: Motorcycle):
+1
+Enter brand: 
+34
+Enter model: 
+rf564
+Enter license plate: 
+23
+Enter parking duration (hours): 
+3
+Has luggage? (1: Yes, 0: No): 
+1
+Enter number of doors: 
+3
+Vehicle added successfully!
+------------------------------
+1. Add Vehicle
+2. Modify Vehicle
+3. Delete Vehicle
+4. Display Vehicles
+5. Save to File
+6. Exit
+--------------------------
+for Display Vehicles:
+4
+Car - Brand: 34, Model: rf564, License Plate: 23, Doors: 3, Luggage: Yes
+Parking Fee: 17.0 DH
+--------------------------
+1. Add Vehicle
+2. Modify Vehicle
+3. Delete Vehicle
+4. Display Vehicles
+5. Save to File
+6. Exit
+---------------------------
+for exit:
+6
+Exiting program...
+*/
+
