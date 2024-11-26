@@ -1,0 +1,57 @@
+/* General button style for all buttons */
+.button {
+    -fx-background-color: #0055A9; /* Default blue background */
+    -fx-text-fill: white;          /* Default text color */
+    -fx-font-size: 20px;           /* Font size */
+    -fx-padding: 10 20;            /* Button padding */
+    -fx-border-radius: 8;          /* Rounded corners */
+    -fx-background-radius: 8;      /* Background radius */
+    -fx-transition:
+        -fx-text-fill 0.3s ease-in-out,
+        -fx-background-color 0.3s ease-in-out;
+    -fx-cursor: hand;              /* Pointer cursor for interactivity */
+}
+
+/* Hover effect for all buttons */
+.button:hover {
+    -fx-background-color: #0055A9; /* Lighter blue on hover */
+    -fx-text-fill: #FFD700;        /* Gold text color on hover */
+}
+
+/* Pressed effect for all buttons */
+.button:pressed {
+    -fx-text-fill: #32CD32;        /* Green text color on click */
+}
+
+/* Animation for returning text to initial color after click */
+.button.clicked {
+    -fx-text-fill: white;          /* Back to white after animation */
+}
+
+
+/* Exit button base style */
+.exit-button {
+    -fx-background-color: #0055A9; /* Default red background */
+    -fx-text-fill: #9E0905;          /* Default text color */
+    -fx-font-size: 20px;           /* Font size */
+    -fx-padding: 10 20;            /* Button padding */
+    -fx-border-radius: 8;          /* Rounded corners */
+    -fx-background-radius: 8;      /* Background radius */
+    -fx-transition: -fx-text-fill 0.3s ease-in-out;
+    -fx-cursor: hand;              /* Pointer cursor */
+}
+
+/* Exit button hover effect: changes text color */
+.exit-button:hover {
+    -fx-text-fill: #D10905; /* Bright red text on hover */
+}
+
+/* Exit button pressed effect: changes text color */
+.exit-button:pressed {
+    -fx-text-fill: #F20905; /* Orange-red text on click */
+}
+
+/* Reset after click */
+.exit-button.clicked {
+    -fx-text-fill: #9E0905; /* Reset to white after animation */
+}
