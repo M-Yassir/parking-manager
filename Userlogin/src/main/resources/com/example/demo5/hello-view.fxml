@@ -40,34 +40,35 @@
    <center>
       <AnchorPane prefHeight="487.0" prefWidth="423.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="243.0" layoutY="283.0" prefHeight="27.0" prefWidth="251.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #0055A9; -fx-border-width: 0px 0px 2px 0px;" />
-            <PasswordField layoutX="242.0" layoutY="322.0" prefHeight="27.0" prefWidth="254.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0055A9; -fx-border-width: 0px 0px 2px 0px;" />
-            <Button layoutX="305.0" layoutY="408.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" style="-fx-background-color: #0055A9;" text="LOGIN" textFill="WHITE">
+            <TextField layoutX="203.0" layoutY="303.0" prefHeight="45.0" prefWidth="381.0" promptText="User Name" style="-fx-background-color: transparent; -fx-border-color: #0055A9; -fx-border-width: 0px 0px 2px 0px;" />
+            <PasswordField layoutX="203.0" layoutY="367.0" prefHeight="40.0" prefWidth="384.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #0055A9; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button layoutX="336.0" layoutY="481.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #0055A9;" text="LOGIN" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="61.0" fitWidth="86.0" layoutX="329.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="81.0" fitWidth="88.0" layoutX="339.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ld.png" />
                </image>
             </ImageView>
-            <Text fill="#0055a9" layoutX="252.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME" wrappingWidth="255.24169921875">
+            <Text fill="#0055a9" layoutX="262.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME" wrappingWidth="287.9083557128906">
                <font>
-                  <Font name="Arial Rounded MT Bold" size="41.0" />
+                  <Font name="Arial Rounded MT Bold" size="46.0" />
                </font>
             </Text>
-            <ImageView fitHeight="78.0" fitWidth="77.0" layoutX="198.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="128.0" fitWidth="63.0" layoutX="141.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ty.png" />
                </image>
             </ImageView>
-            <Text fill="#0055a9" layoutX="261.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Access your account">
+            <Text fill="#0055a9" layoutX="254.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Access your account">
                <font>
-                  <Font size="22.0" />
+                  <Font size="28.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
    </center>
 </BorderPane>
+
