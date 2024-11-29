@@ -55,3 +55,44 @@
 .exit-button.clicked {
     -fx-text-fill: #9E0905; /* Reset to white after animation */
 }
+
+.search{
+    -fx-background-color:transparent;
+    -fx-border-color:linear-gradient(to bottom right,#004696,#004696);
+    -fx-border-radius:5px;
+    -fx-font-size:13px;
+    -fx-font-family:"Arial";
+    -fx-border-width:1px;
+    -fx-padding:0px 0px 0px 24px;
+}
+.search:focused{
+    -fx-border-width:2px;
+}
+
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom right, #004696, #004696);
+    -fx-background-insets: 0 0 0 0;
+    -fx-background-radius: 8px 8px 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.2); /* Light separator */
+    -fx-border-width: 0 1 0 0; /* Right border only */
+    -fx-padding: 10px;
+}
+
+.table-view .column-header:last-child {
+    -fx-border-width: 0; /* Remove border from last column */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+

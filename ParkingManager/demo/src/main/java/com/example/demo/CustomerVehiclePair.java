@@ -44,7 +44,7 @@ public class CustomerVehiclePair {
     }
 
     public String getVehicleSubscription() {
-        return vehicle.SubscriptionPlan.keySet().toArray(new String[0])[1]; // Example summary
+        return "1 Month: " + vehicle.getSubscriptionPrice("1 month") + " DH"; // Example summary
     }
 }
 
