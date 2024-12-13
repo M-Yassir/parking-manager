@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="scenepane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Controller">
+    <children>
+        <BorderPane layoutX="121.0" layoutY="140.0" prefHeight="613.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="638.0" prefWidth="209.0" style="-fx-background-color: #0055A9;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#add" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" stylesheets="@buttons.css" text="Add" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Unicode MS" size="22.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="39.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Add New.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#remove" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" stylesheets="@buttons.css" text="Remove" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Unicode MS" size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="38.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Remove.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#modify" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" stylesheets="@buttons.css" text="Modify" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Unicode MS" size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="46.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Edit.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#SaveToFile" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" stylesheets="@buttons.css" text="Save to file" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Unicode MS" size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="41.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Save.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#LoadFromFile" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" stylesheets="@buttons.css" text="Load from file" textFill="WHITE">
+                            <font>
+                                <Font name="Arial Unicode MS" size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="41.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Reset.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button fx:id="exit" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#exit" prefHeight="76.0" prefWidth="218.0" style="-fx-background-color: #0055A9;" styleClass="exit-button" stylesheets="@buttons.css" text="Exit" textFill="#a10909">
+                            <font>
+                                <Font name="Arial Unicode MS" size="20.0" />
+                            </font>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                            <graphic>
+                                <ImageView fitHeight="42.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Logout.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+
+                        <!-- Buttons omitted for brevity -->
+                    </children>
+                </VBox>
+            </left>
+            <top>
+                <HBox prefHeight="61.0" prefWidth="1100.0" style="-fx-background-color: #004696;" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane prefHeight="62.0" prefWidth="84.0">
+                            <children>
+                                <ImageView fitHeight="33.0" fitWidth="38.0" layoutX="46.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Car.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fitHeight="71.0" fitWidth="70.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../Icons/Parking.png" />
+                                    </image>
+                                    <cursor>
+                                        <Cursor fx:constant="SW_RESIZE" />
+                                    </cursor>
+                                </ImageView>                                <!-- Logo -->
+                            </children>
+                        </Pane>
+                        <Label alignment="BASELINE_LEFT" contentDisplay="CENTER" prefHeight="62.0" prefWidth="497.0" text="PARKING MANAGER" textFill="WHITE">
+                            <font>
+                                <Font name="Arial" size="42.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <BorderPane prefHeight="652.0" prefWidth="894.0">
+                    <top>
+                        <HBox prefHeight="59.0" prefWidth="890.0" BorderPane.alignment="CENTER">
+                            <children>
+                                <Pane prefHeight="58.0" prefWidth="890.0">
+                                    <children>
+                                        <!-- Updated TextField added below -->
+                                        <TextField fx:id="searchField" layoutX="14.0" layoutY="21.0" onAction="#search" prefHeight="25.0" prefWidth="484.0" promptText="Rechercher un véhicule" styleClass="search" stylesheets="@buttons.css" />
+                                        <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="14.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../../Icons/Search2.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </Pane>
+                            </children>
+                        </HBox>
+                    </top>
+                    <center>
+                        <TableView fx:id="table" prefHeight="565.0" prefWidth="806.0" styleClass="table-column" stylesheets="@buttons.css">
+                            <columns>
+                                <TableColumn fx:id="Vehicle" prefWidth="670.3999570608139" text="Vehicle">
+                                    <columns>
+                                        <TableColumn fx:id="RegistrationNumber" prefWidth="130.39998853206635" text="Registration number" />
+                                        <TableColumn fx:id="Name" prefWidth="98.40000915527344" text="Name" />
+                                        <TableColumn fx:id="Model" prefWidth="87.20001220703125" text="Model" />
+                                        <TableColumn fx:id="Type" prefWidth="91.199951171875" text="Type" />
+                                        <TableColumn fx:id="Time" prefWidth="86.4000244140625" text="Time(h)" />
+                                        <TableColumn fx:id="Subscription" prefWidth="106.39999389648438" text="Subscription" />
+                                        <TableColumn fx:id="Price" prefWidth="57.60003662109375" text="Price(dh)" />
+                                    </columns>
+                                </TableColumn>
+                                <TableColumn fx:id="Custommer" prefWidth="213.60002441406255" text="Custommer">
+                                    <columns>
+                                        <TableColumn fx:id="FullName" prefWidth="134.39996337890625" text="Full Name" />
+                                        <TableColumn fx:id="NID" prefWidth="93.0" text="NID" />
+                                    </columns>
+                                </TableColumn>
+                            </columns>
+                        </TableView>
+                    </center>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
