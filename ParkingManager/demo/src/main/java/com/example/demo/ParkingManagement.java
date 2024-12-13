@@ -57,7 +57,7 @@ public class ParkingManagement {
                     System.out.println("Has four places? (1: Yes, 0: No): ");
                     boolean hasFourPlaces = scanner.nextInt() == 1;
                     scanner.nextLine();
-                    Car car = new Car(name, model, registrationNumber, "Bike", duration, hasFourPlaces);
+                    Car car = new Car(name, model, registrationNumber, "Bike", duration, hasFourPlaces,"-");
                     System.out.println("You should pay " + car.price + "DH");
                     vehicleList.add(car);
 

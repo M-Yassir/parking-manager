@@ -8,21 +8,20 @@ public abstract class Vehicle {
     protected String registrationNumber; // (matricule)
     protected String type;
     protected int duration;
+    protected boolean subscription;
+    protected String subscriptionDetails;
     protected int price;
-    
-    protected HashMap<String, Integer> SubscriptionPlan = new HashMap<>();
 
-    // Initialize subscription plans in a hash map
-    {
-        SubscriptionPlan.put("1 day", 15); // if it is one day you pay 15dh......
-        SubscriptionPlan.put("3 days", 30);
-        SubscriptionPlan.put("1 week", 60);
-        SubscriptionPlan.put("2 weeks", 110);
-        SubscriptionPlan.put("1 month", 200);
-        SubscriptionPlan.put("2 months", 380);
-        SubscriptionPlan.put("3 months", 550);
-        SubscriptionPlan.put("6 months", 1000);
-    }
+    protected HashMap<String, Integer> SubscriptionPlan = new HashMap<>() {{
+        put("1 day", 15); // if it is one day you pay 15dh......
+        put("3 days", 30);
+        put("1 week", 60);
+        put("2 weeks", 110);
+        put("1 month", 200);
+        put("2 months", 380);
+        put("3 months", 550);
+        put("6 months", 1000);
+    }};
 
     public Vehicle() {
         this.name = "Unknown";
@@ -30,6 +29,8 @@ public abstract class Vehicle {
         this.registrationNumber = "Unknown";
         this.type = "Unknown";
         this.duration = 0;
+        this.subscription = false;
+        this.subscriptionDetails = null;
         this.price = 0;
     }
 
@@ -39,8 +40,23 @@ public abstract class Vehicle {
         this.registrationNumber = registrationNumber;
         this.type = type;
         this.duration = duration;
+        this.subscription = false;
+        this.subscriptionDetails = null;
+        this.price = calculatePrice();
     }
 
+    public Vehicle(String name, String model, String registrationNumber, String type, int price, boolean subscription, String subscriptionDetails) {
+        this.name = name;
+        this.model = model;
+        this.registrationNumber = registrationNumber;
+        this.type = type;
+        this.duration = 0;
+        this.subscription = subscription;
+        this.subscriptionDetails = subscriptionDetails;
+        this.price = price;
+    }
+
+    // Getters and setters
     public String getName() {
         return name;
     }
@@ -77,7 +93,7 @@ public abstract class Vehicle {
         return duration;
     }
 
-    public void setDuration(String date) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -89,8 +105,42 @@ public abstract class Vehicle {
         this.price = price;
     }
 
+    public boolean isSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(boolean subscription) {
+        this.subscription = subscription;
+    }
+
+    public String getSubscriptionDetails() {
+        return subscriptionDetails;
+    }
+
+    public void setSubscriptionDetails(String subscriptionDetails) {
+        this.subscriptionDetails = subscriptionDetails;
+    }
+
     public int getSubscriptionPrice(String plan) {
         return SubscriptionPlan.getOrDefault(plan, -1);
+    }
+
+    // Calculate price based on vehicle type and duration
+    protected int calculatePrice() {
+        switch (type) {
+            case "Bike":
+                return 2 * duration;
+            case "Car":
+                return 3 * duration;
+            case "Truck":
+                return 4 * duration;
+            default:
+                return 0;
+        }
+    }
+
+    public int getVehicleDuration() {
+        return duration;
     }
 
     public abstract void displayDetails();
@@ -98,6 +148,7 @@ public abstract class Vehicle {
     @Override
     public String toString() {
         return "Vehicle [name=" + name + ", model=" + model + ", registrationNumber=" + registrationNumber
-                + ", type=" + type + ", duration=" + duration + ", price=" + price  + "]";
+                + ", type=" + type + ", duration=" + duration + ", price=" + price
+                + ", subscription=" + subscription + ", subscriptionDetails=" + subscriptionDetails + "]";
     }
 }

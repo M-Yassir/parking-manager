@@ -3,30 +3,37 @@ package com.example.demo;
 public class Car extends Vehicle {
     private boolean HasFourDoors;
     private float CarCoeficient = 1;
+    private String subscriptionDetails;
 
     public Car() {
         super();
         this.HasFourDoors = false;
     }
 
-    public Car(String name, String model, String registrationNumber, String type, int duration, boolean HasFourDoors) {
+    public Car(String name, String model, String registrationNumber, String type, int duration, boolean HasFourDoors, String subscriptionDetails) {
         super(name, model, registrationNumber, type, duration);
         this.HasFourDoors = HasFourDoors;
-        this.price = (int) CarCoeficient*(3*this.duration);
+        this.price = (int) CarCoeficient * (3 * this.duration);
+        this.subscriptionDetails = subscriptionDetails;
+
+        // Adjust price and duration based on subscription
+        if (subscriptionDetails != null) {
+            this.duration = 0; // Set duration to 0 if subscription is selected
+            this.price = getSubscriptionPrice(subscriptionDetails);
+            this.subscription = true;
+        }
     }
 
     public boolean isHasFourDoors() {
         return HasFourDoors;
     }
 
-
-
     public void setHasFourDoors(boolean HasFourDoors) {
         this.HasFourDoors = HasFourDoors;
     }
 
-    public void setCarCoeficient(){
-        if(HasFourDoors) {
+    public void setCarCoeficient() {
+        if (HasFourDoors) {
             this.CarCoeficient = (float) (this.CarCoeficient + 0.2);
         }
     }
@@ -34,8 +41,6 @@ public class Car extends Vehicle {
     public float getCarCoeficient() {
         return CarCoeficient;
     }
-
-
 
     @Override
     public void displayDetails() {
@@ -49,7 +54,9 @@ public class Car extends Vehicle {
         System.out.println("Has Sunroof: " + (HasFourDoors ? "Yes" : "No"));
     }
 
-
+    public String getSubscriptionDetails() {
+        return subscriptionDetails != null ? subscriptionDetails : "-";
+    }
 
     @Override
     public String toString() {
