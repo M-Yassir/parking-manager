@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="548.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddVehicleController">
+    <children>
+        <VBox layoutX="19.0" layoutY="17.0" prefHeight="513.0" prefWidth="561.0" spacing="15" style="-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-width: 1; -fx-padding: 15;">
+            <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0055A9;" text="Add Vehicle" />
+
+            <!-- Registration Number -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Registration Number:" />
+                <TextField fx:id="registrationNumberTextField" prefWidth="300.0" promptText="Enter registration number" />
+            </HBox>
+
+            <!-- Vehicle Name -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Name:" />
+                <TextField fx:id="vehicleNameTextField" prefWidth="300.0" promptText="Enter vehicle name" />
+            </HBox>
+
+            <!-- Vehicle Model -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Model:" />
+                <TextField fx:id="vehicleModelTextField" prefWidth="300.0" promptText="Enter model" />
+            </HBox>
+
+            <!-- Vehicle Type -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Vehicle Type:" />
+                <ComboBox fx:id="vehicleTypeComboBox" prefWidth="300.0" promptText="Select Type">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Bike" />
+                            <String fx:value="Car" />
+                            <String fx:value="Truck" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- Customer Full Name -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Customer Full Name:" />
+                <TextField fx:id="customerFullNameTextField" prefWidth="300.0" promptText="Enter full name" />
+            </HBox>
+
+            <!-- Customer NID -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Customer NID:" />
+                <TextField fx:id="customerNidTextField" prefWidth="300.0" promptText="Enter NID" />
+            </HBox>
+
+            <!-- Time -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Time:" />
+                <TextField fx:id="timeTextField" prefWidth="300.0" promptText="Enter parking time in hours" />
+            </HBox>
+
+            <!-- Use Subscription CheckBox -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="or use a Subscription:" />
+                <CheckBox fx:id="subscriptionCheckBox" />
+            </HBox>
+
+            <!-- Subscription ComboBox -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Subscription:" />
+                <ComboBox fx:id="subscriptionComboBox" prefWidth="300.0" promptText="Select Subscription">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="1 day" />
+                            <String fx:value="3 days" />
+                            <String fx:value="1 week" />
+                            <String fx:value="2 weeks" />
+                            <String fx:value="1 month" />
+                            <String fx:value="2 months" />
+                            <String fx:value="3 months" />
+                            <String fx:value="6 months" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+
+            <!-- Total Amount -->
+            <HBox spacing="10">
+                <Label prefWidth="150.0" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Total Amount(DH):" />
+                <Label fx:id="totalAmountLabel" style="-fx-font-size: 18px; -fx-text-fill: #0055A9; -fx-font-weight: bold;" text="0.0" />
+            </HBox>
+
+            <!-- Buttons -->
+            <HBox alignment="CENTER" spacing="20">
+                <Button onAction="#addVehicle" prefWidth="120.0" style="-fx-background-color: #0055A9; -fx-text-fill: white;" text="Add Vehicle" />
+                <Button onAction="#cancel" prefWidth="120.0" style="-fx-background-color: #a10909; -fx-text-fill: white;" text="Cancel" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

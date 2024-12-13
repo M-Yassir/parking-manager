@@ -5,10 +5,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
 
 public class Controller {
 
@@ -17,7 +22,7 @@ public class Controller {
     @FXML
     private TableView<CustomerVehiclePair> table;
     @FXML
-    private TextField searchField; // Champ de texte pour la recherche
+    private TextField searchField;
     @FXML
     private TableColumn<CustomerVehiclePair, String> RegistrationNumber;
     @FXML
@@ -27,7 +32,7 @@ public class Controller {
     @FXML
     private TableColumn<CustomerVehiclePair, String> Type;
     @FXML
-    private TableColumn<CustomerVehiclePair, Integer> Time;
+    private TableColumn<CustomerVehiclePair, String> Time;
     @FXML
     private TableColumn<CustomerVehiclePair, String> Subscription;
     @FXML
@@ -38,26 +43,58 @@ public class Controller {
     private TableColumn<CustomerVehiclePair, String> NID;
 
     private ObservableList<CustomerVehiclePair> data;
-    // This is for the main buttons don't see that
-    public void add(ActionEvent e){
+
+    public void add(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("addvehicle.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller for the add vehicle window
+            AddVehicleController addVehicleController = loader.getController();
+
+            // Set the main controller reference
+            addVehicleController.setMainController(this);
+
+            Stage AddStage = new Stage();
+            AddStage.setTitle("Add Vehicle");
+            AddStage.setScene(new Scene(root));
+            AddStage.show();
+        } catch (IOException ex) {
+            // Create an alert to show the error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to open Add Vehicle window");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+
+            // Log the exception for debugging
+            ex.printStackTrace();
+        }
+    }
+
+    public void remove(ActionEvent e) {
         // To do
         System.out.println("Add");
     }
-    public void remove(ActionEvent e){
+
+    public void modify(ActionEvent e) {
         // To do
         System.out.println("Add");
     }
-    public void modify(ActionEvent e){
+
+    public void SaveToFile(ActionEvent e) {
         // To do
         System.out.println("Add");
     }
-    public void SaveToFile(ActionEvent e){
+
+    public void LoadFromFile(ActionEvent e) {
         // To do
         System.out.println("Add");
     }
-    public void LoadFromFile(ActionEvent e){
-        // To do
-        System.out.println("Add");
+
+    // New method to add vehicle to the table
+    public void addNewVehicle(CustomerVehiclePair newVehicle) {
+        data.add(newVehicle);
     }
 
     @FXML
@@ -77,42 +114,41 @@ public class Controller {
         data = FXCollections.observableArrayList(
                 new CustomerVehiclePair(
                         new Customer("John", "Doe", "12345"),
-                        new Car("Toyota", "Corolla", "ABC123", "Sedan", 7, true)
+                        new Car("Toyota", "Corolla", "ABC123", "Sedan", 7, false, null)
                 ),
                 new CustomerVehiclePair(
                         new Customer("Jane", "Smith", "67890"),
-                        new Car("Ford", "Fiesta", "XYZ789", "Hatchback", 30, false)
+                        new Car("Ford", "Fiesta", "XYZ789", "Hatchback", 0, true, "1 month")
                 ),
                 new CustomerVehiclePair(
                         new Customer("Alice", "Johnson", "11223"),
-                        new Car("Honda", "Civic", "LMN456", "Sedan", 15, true)
+                        new Car("Honda", "Civic", "LMN456", "Sedan", 15, false, null)
                 ),
                 new CustomerVehiclePair(
                         new Customer("Bob", "Williams", "44556"),
-                        new Car("Chevrolet", "Cruze", "OPQ321", "Sedan", 20, false)
+                        new Car("Chevrolet", "Cruze", "OPQ321", "Sedan", 0, true, "3 days")
                 ),
                 new CustomerVehiclePair(
                         new Customer("Emily", "Davis", "77889"),
-                        new Car("Nissan", "Altima", "RST654", "Sedan", 10, true)
+                        new Car("Nissan", "Altima", "RST654", "Sedan", 10, false, null)
                 ),
                 new CustomerVehiclePair(
                         new Customer("David", "Brown", "99887"),
-                        new Car("Hyundai", "Elantra", "UVW987", "Hatchback", 25, false)
+                        new Car("Hyundai", "Elantra", "UVW987", "Hatchback", 0, true, "1 week")
                 ),
                 new CustomerVehiclePair(
                         new Customer("Sophia", "Miller", "55667"),
-                        new Car("Kia", "Optima", "XYZ123", "SUV", 8, true)
+                        new Car("Kia", "Optima", "XYZ123", "SUV", 8, false, null)
                 ),
                 new CustomerVehiclePair(
                         new Customer("Liam", "Anderson", "33445"),
-                        new Car("Mazda", "CX-5", "DEF456", "SUV", 12, false)
+                        new Car("Mazda", "CX-5", "DEF456", "SUV", 0, true, "2 weeks")
                 ),
                 new CustomerVehiclePair(
                         new Customer("Olivia", "Taylor", "66778"),
-                        new Car("Volkswagen", "Golf", "HIJ789", "Hatchback", 18, true)
+                        new Car("Volkswagen", "Golf", "HIJ789", "Hatchback", 18, false, null)
                 )
         );
-
 
         // Définir les données dans le tableau
         table.setItems(data);

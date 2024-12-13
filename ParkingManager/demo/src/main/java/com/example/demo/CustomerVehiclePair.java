@@ -35,16 +35,19 @@ public class CustomerVehiclePair {
         return vehicle.getType();
     }
 
-    public int getVehicleDuration() {
-        return vehicle.getDuration();
+    public String getVehicleDuration() {
+        // If subscription is true, return "-"
+        return vehicle.isSubscription() ? "-" : String.valueOf(vehicle.getVehicleDuration());
+    }
+
+    public String getVehicleSubscription() {
+        // If subscription is true, return subscription details
+        // If not, return "-"
+        return vehicle.isSubscription() ? vehicle.getSubscriptionDetails() : "-";
     }
 
     public int getVehiclePrice() {
         return vehicle.getPrice();
-    }
-
-    public String getVehicleSubscription() {
-        return "1 Month: " + vehicle.getSubscriptionPrice("1 month") + " DH"; // Example summary
     }
 }
 
