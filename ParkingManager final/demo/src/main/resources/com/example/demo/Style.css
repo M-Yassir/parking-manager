@@ -1,0 +1,17 @@
+.button {
+    -fx-background-color: #0055A9;
+    -fx-text-fill: white;
+}
+
+.text-field, .password-field {
+    -fx-border-color: #0055A9;
+    -fx-border-width: 0px 0px 2px 0px;
+    -fx-background-color: transparent;
+}
+.button {
+    -fx-background-color: #ff4444;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+}
