@@ -92,13 +92,16 @@ Building Parking Manager taught us so much more than just coding:
 ## 📺 See It in Action
 https://github.com/user-attachments/assets/521adf9d-66ad-4d5f-9d26-71ca7bdfb9b4
 
-*(If you want to log in, username:admin, password:1234)*
+*(If you want to log in, username: admin, password: 1234)*
 
 ## 📜 About the MIT License
 
 We chose the **MIT License** because:
+
 ✅ Anyone can use our code for free
+
 ✅ Businesses can use it in their projects  
+
 ✅ Others can learn from our work  
 
 The only requirements are:
