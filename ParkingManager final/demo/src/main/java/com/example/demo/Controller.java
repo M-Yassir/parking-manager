@@ -399,14 +399,15 @@ public class Controller {
     }
 
     @FXML
-    public void exit(ActionEvent e) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Warning!");
-        alert.setHeaderText("Confirm Exit");
-        alert.setContentText("Are you sure you want to quit?");
-
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            stage.close(); // Use the Stage reference to close the window
-        }
+public void exit(ActionEvent e) {
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setTitle("Warning!");
+    alert.setHeaderText("Confirm Exit");
+    alert.setContentText("Are you sure you want to quit?");
+    if (alert.showAndWait().get() == ButtonType.OK) {
+        // Get the stage from the current scene
+        Stage stage = (Stage) scenepane.getScene().getWindow();
+        stage.close();
     }
+}
 }
