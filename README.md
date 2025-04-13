@@ -90,8 +90,8 @@ Building Parking Manager taught us so much more than just coding:
 - The importance of good documentation
 
 ## 📺 See It in Action
-
-*(We'll add a demo video here soon to show Parking Manager working!)*
+https://github.com/user-attachments/assets/521adf9d-66ad-4d5f-9d26-71ca7bdfb9b4
+*(If you want to log in, username:admin, password:1234)*
 
 ## 📜 About the MIT License
 
