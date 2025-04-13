@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -168,35 +169,20 @@ public class Controller {
         File file = fileChooser.showSaveDialog(new Stage());
         if (file != null) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                int colWidthName = 20;
-                int colWidthReg = 25;
-                int colWidthModel = 15;
-                int colWidthType = 15;
-                int colWidthDuration = 10;
-                int colWidthSubscription = 15;
-                int colWidthPrice = 10;
-                int colWidthFullName = 25;
-                int colWidthNID = 15;
-
-                String header = String.format(
-                        "%-" + colWidthName + "s | %-" + colWidthReg + "s | %-" + colWidthModel + "s | %-" + colWidthType + "s | %-" + colWidthDuration + "s | %-" + colWidthSubscription + "s | %-" + colWidthPrice + "s | %-" + colWidthFullName + "s | %-" + colWidthNID + "s",
-                        "Name", "Registration number", "Model", "Type", "Time(h)", "subscription", "Price", "Full name", "NID"
-                );
-                writer.write(header);
-                writer.newLine();
-                writer.write("-".repeat(header.length()));
+                // Write header line
+                writer.write("RegistrationNumber,Name,Model,Type,Time,Subscription,Price,FullName,NID");
                 writer.newLine();
 
+                // Write data rows
                 for (CustomerVehiclePair pair : data) {
-                    String line = String.format(
-                            "%-" + colWidthName + "s | %-" + colWidthReg + "s | %-" + colWidthModel + "s | %-" + colWidthType + "s | %-" + colWidthDuration + "d | %-" + colWidthSubscription + "s | %-" + colWidthPrice + "d | %-" + colWidthFullName + "s | %-" + colWidthNID + "s",
-                            pair.getVehicle().getName(),
-                            pair.getVehicle().getRegistrationNumber(),
-                            pair.getVehicle().getModel(),
-                            pair.getVehicle().getType(),
-                            pair.getVehicle().getDuration(),
-                            pair.getVehicle().isSubscription() ? "Yes" : "No",
-                            pair.getVehicle().getPrice(),
+                    String line = String.join(",",
+                            pair.getVehicleRegistrationNumber(),
+                            pair.getVehicleName(),
+                            pair.getVehicleModel(),
+                            pair.getVehicleType(),
+                            String.valueOf(pair.getVehicleDuration()),
+                            pair.getVehicleSubscription(),
+                            String.valueOf(pair.getVehiclePrice()),
                             pair.getCustomerFullName(),
                             pair.getCustomerNid()
                     );
@@ -230,71 +216,151 @@ public class Controller {
     public void LoadFromFile(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose CSV File");
-
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
-        Stage stage = (Stage) scenepane.getScene().getWindow();
-        File selectedFile = fileChooser.showOpenDialog(stage);
+        Stage currentStage = (stage != null) ? stage : (Stage) scenepane.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(currentStage);
 
         if (selectedFile != null) {
+            ObservableList<CustomerVehiclePair> loadedData = FXCollections.observableArrayList();
+            int lineNumber = 0;
+            String currentLine = null; // For error reporting
+
             try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
-                String line;
-                boolean isFirstLine = true;
-                ObservableList<CustomerVehiclePair> loadedData = FXCollections.observableArrayList();
-
-                while ((line = reader.readLine()) != null) {
-                    if (isFirstLine) {
-                        isFirstLine = false;
-                        continue;
-                    }
-
-                    String[] fields = line.split(",");
-
-                    if (fields.length == 9) {
-                        Customer customer = new Customer(fields[7].trim(), fields[7].trim(), fields[8].trim());
-                        Vehicle vehicle = new Car(
-                                fields[1].trim(),
-                                fields[2].trim(),
-                                fields[0].trim(),
-                                fields[3].trim(),
-                                Integer.parseInt(fields[4].trim())
-                        );
-                        CustomerVehiclePair pair = new CustomerVehiclePair(customer, vehicle);
-                        loadedData.add(pair);
-                    }
+                String headerLine = reader.readLine(); // Read and discard header
+                lineNumber++;
+                if (headerLine == null) {
+                    showError("Error: The selected file appears to be empty.");
+                    return;
                 }
 
-                this.data = loadedData;
-                table.setItems(data);
+                while ((currentLine = reader.readLine()) != null) {
+                    lineNumber++;
+                    if (currentLine.trim().isEmpty()) {
+                        continue; // Skip blank lines
+                    }
+
+                    String[] fields = currentLine.split(",");
+
+                    if (fields.length == 9) {
+                        String registrationNumber = fields[0].trim();
+                        String name = fields[1].trim();
+                        String model = fields[2].trim();
+                        String type = fields[3].trim();
+                        String durationStr = fields[4].trim(); // Get duration string
+                        String subscription = fields[5].trim();
+                        String fullName = fields[7].trim();
+                        String nid = fields[8].trim();
+
+                        if (registrationNumber.isEmpty() || name.isEmpty() || model.isEmpty() || type.isEmpty() || fullName.isEmpty() || nid.isEmpty()) {
+                            throw new IllegalArgumentException("Required fields (RegNo, Name, Model, Type, FullName, NID) cannot be empty.");
+                        }
+
+                        // --- Modified Parse Duration ---
+                        int duration;
+                        if (durationStr.equals("-")) {
+                            // If the duration field contains "-", treat it as 0 duration
+                            duration = 0;
+                        } else {
+                            // Otherwise, try to parse it as a non-negative integer
+                            try {
+                                duration = Integer.parseInt(durationStr);
+                                if (duration < 0) {
+                                    // Throw error if parsed value is negative
+                                    throw new NumberFormatException("Duration cannot be negative: " + duration);
+                                }
+                            } catch (NumberFormatException e) {
+                                // Throw specific error if duration is not a valid non-negative integer (and wasn't "-")
+                                throw new NumberFormatException("Invalid non-negative integer value for Duration: '" + durationStr + "'");
+                            }
+                        }
+                        // --- End of Modified Parse Duration ---
+
+
+                        String firstName = "";
+                        String lastName = "";
+                        if (!fullName.isEmpty()) {
+                            String[] nameParts = fullName.split("\\s+", 2);
+                            firstName = nameParts[0];
+                            lastName = nameParts.length > 1 ? nameParts[1] : "";
+                        }
+
+                        Customer customer = new Customer(firstName, lastName, nid);
+
+                        Vehicle vehicle;
+                        String vehicleTypeLower = type.toLowerCase();
+                        boolean hasSubscription = subscription != null && !subscription.isEmpty() && !subscription.equals("-");
+
+                        switch (vehicleTypeLower) {
+                            case "bike":
+                                vehicle = new Bike(name, model, registrationNumber, type, duration, hasSubscription ? subscription : null);
+                                break;
+                            case "truck":
+                                if (hasSubscription) {
+                                    System.err.println("Warning line " + lineNumber + ": Subscription '" + subscription + "' found for Truck type, ignoring.");
+                                }
+                                vehicle = new Truck(name, model, registrationNumber, type, duration);
+                                break;
+                            case "car":
+                                vehicle = new Car(name, model, registrationNumber, type, duration, hasSubscription ? subscription : null);
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Unknown vehicle type: '" + type + "'");
+                        }
+
+                        CustomerVehiclePair pair = new CustomerVehiclePair(customer, vehicle);
+                        loadedData.add(pair);
+
+                    } else {
+                        throw new IllegalArgumentException("Incorrect number of fields found. Expected 9, got " + fields.length + ".");
+                    }
+                } // End while loop
+
+                if (this.data == null) {
+                    this.data = FXCollections.observableArrayList();
+                    table.setItems(this.data);
+                }
+                searchField.clear();
+                this.data.setAll(loadedData);
+                table.refresh();
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setHeaderText("Loading Complete");
-                alert.setContentText("Data has been loaded from file " + selectedFile.getName());
+                alert.setContentText("Successfully loaded " + loadedData.size() + " records from file:\n" + selectedFile.getName());
                 alert.showAndWait();
 
             } catch (IOException e) {
                 showError("Error reading file: " + e.getMessage());
-            } catch (NumberFormatException e) {
-                showError("The file contains invalid data (example: non-numeric duration or price).");
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                showError("Error processing file at line " + lineNumber + ": " + e.getMessage() + "\nLine content: [" + currentLine + "]");
+                e.printStackTrace();
+            } catch (Exception e) {
+                showError("An unexpected error occurred near line " + lineNumber + ": " + e.getMessage() + "\nLine content: [" + currentLine + "]");
+                e.printStackTrace();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("No file selected");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select a file to load.");
-            alert.showAndWait();
+            System.out.println("File load cancelled by user.");
         }
     }
 
+    // Ensure you have the showError method defined as before
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
+        alert.setTitle("Loading Error");
+        alert.setHeaderText("Failed to load data");
+        TextArea textArea = new TextArea(message);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setMaxWidth(Double.MAX_VALUE);
+        textArea.setMaxHeight(Double.MAX_VALUE);
+        alert.getDialogPane().setContent(textArea);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.setResizable(true);
         alert.showAndWait();
     }
 
@@ -400,7 +466,7 @@ public class Controller {
 
     @FXML
 public void exit(ActionEvent e) {
-    Alert alert = new Alert(AlertType.CONFIRMATION);
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Warning!");
     alert.setHeaderText("Confirm Exit");
     alert.setContentText("Are you sure you want to quit?");
@@ -411,3 +477,4 @@ public void exit(ActionEvent e) {
     }
 }
 }
+
